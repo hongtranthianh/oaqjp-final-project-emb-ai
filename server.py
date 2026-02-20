@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -10,6 +11,10 @@ def sent_analyzer():
 
     # Pass the text to the emotion_detector function and store the response
     response = emotion_detector(text_to_analyze)
+
+    # Check if the dominant_emotion is None (indicating an error/invalid input)
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
     # Extract information from the response
     anger = response['anger']
